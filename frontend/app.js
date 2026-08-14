@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = "https://student-analysis-ci0q.onrender.com";
 
 const loginPage = document.getElementById("loginPage");
 const signupPage = document.getElementById("signupPage");
