@@ -11,7 +11,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 from .database import engine, SessionLocal
-import models
+from . import models
 
 models.Base.metadata.create_all(bind=engine)
 
