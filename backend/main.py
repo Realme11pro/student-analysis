@@ -1,3 +1,6 @@
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
+import os
 from fastapi import FastAPI, Depends, HTTPException, status, Header, UploadFile, File, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from fastapi.middleware.cors import CORSMiddleware
@@ -16,6 +19,10 @@ from . import models
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"message": "Student Analysis API is running successfully!"}
 
 app.add_middleware(
     CORSMiddleware,
