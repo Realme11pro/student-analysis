@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Analysis</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="loginPage" class="auth-page">
+    <div class="auth-box">
+        <h1>Student Analysis</h1>
+        <h2 id="loginTitle">Welcome Back</h2>
+        <p id="loginSubtitle">Login to continue your journey</p>
+
+        <form id="loginForm">
+            <label>Email</label>
+            <input type="email" id="loginEmail" placeholder="Enter your email" required>
+
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+            <label style="display: flex; align-items: center; cursor: pointer; margin-top: 6px; font-weight: normal; font-size: 13px; color: #475569;">
+                <input type="checkbox" onclick="togglePassword('loginPassword')" style="width: 15px; height: 15px; margin-right: 8px; cursor: pointer;"> Show Password
+            </label>
+
+            <button type="submit">Next (Authenticator)</button>
+            <div id="loginMessage"></div>
+            
+            <p style="text-align: right; margin-top: 10px; font-size: 13px;">
+                <span onclick="showForgotPassword()" style="color: #4f46e5; cursor: pointer; font-weight: 600;">Forgot Password?</span>
+            </p>
+        </form>
+
+        <form id="otpForm" class="hidden" style="margin-top: 15px;">
+            <label>Google Authenticator Code</label>
+            <p style="font-size: 12px; color: #64748b; margin-bottom: 8px;">Enter the 6-digit code from your Authenticator app.</p>
+            <input type="text" id="otpInput" placeholder="Enter 6-digit code" maxlength="6" required>
+            
+            <button type="submit">Verify & Login</button>
+            <div id="otpMessage"></div>
+        </form>
+
+        <form id="forgotForm" class="hidden" style="margin-top: 15px;">
+            <label>Email Address</label>
+            <input type="email" id="forgotEmail" placeholder="Enter your registered email" required>
+
+            <label>Authenticator Code</label>
+            <input type="text" id="forgotOtp" placeholder="Enter 6-digit code" maxlength="6" required>
+
+            <label>New Password</label>
+            <input type="password" id="newPassword" placeholder="Enter new password" required>
+
+            <button type="submit">Reset Password</button>
+            <div id="forgotMessage"></div>
+
+            <p class="switch" style="margin-top: 15px;">
+                Remember password? <span onclick="showLogin()">Login</span>
+            </p>
+        </form>
+
+        <p class="switch" id="signupSwitchText">
+            Don't have an account? <span onclick="showSignup()">Sign Up</span>
+        </p>
+    </div>
+</div>
+
+<div id="signupPage" class="auth-page hidden">
+    <div class="auth-box" style="max-height: 90vh; overflow-y: auto;">
+        <h1>Student Analysis</h1>
+        <h2>Create Account</h2>
+        <p>Register with your full details</p>
+
+        <form id="signupForm">
+            <label>Full Name</label>
+            <input type="text" id="regFullName" placeholder="Enter your full name" required>
+
+            <label>Email</label>
+            <input type="email" id="signupEmail" placeholder="Enter your email" required>
+
+            <label>Phone Number</label>
+            <input type="tel" id="regPhone" placeholder="Enter your phone number" required>
+
+            <label>Date of Birth</label>
+            <input type="date" id="regDob" required>
+
+            <label>Gender</label>
+            <input type="text" id="regGender" placeholder="Male / Female / Other" required>
+
+            <label>College/University</label>
+            <input type="text" id="regCollege" placeholder="Enter your college/university" required>
+
+            <label>Course</label>
+            <input type="text" id="regCourse" placeholder="e.g. B.Tech / BCA" required>
+
+            <label>Semester</label>
+            <input type="text" id="regSemester" placeholder="e.g. 5th Semester" required>
+
+            <label>Student ID / Roll No.</label>
+            <input type="text" id="regRollNo" placeholder="Enter your roll number or student ID" required>
+
+            <label>Password</label>
+            <input type="password" id="signupPassword" placeholder="Create password" required>
+            <label style="display: flex; align-items: center; cursor: pointer; margin-top: 6px; font-weight: normal; font-size: 13px; color: #475569;">
+                <input type="checkbox" onclick="togglePassword('signupPassword')" style="width: 15px; height: 15px; margin-right: 8px; cursor: pointer;"> Show Password
+            </label>
+
+            <button type="submit">Create Account</button>
+            <div id="signupMessage"></div>
+        </form>
+
+        <div id="secretBox" class="hidden" style="margin-top: 15px; padding: 15px; background: #eef2ff; border-radius: 10px; text-align: center;">
+            <p style="font-size: 13px; font-weight: bold; color: #4f46e5;">Save this Secret Key in Google Authenticator:</p>
+            <p id="displaySecretKey" style="font-family: monospace; font-size: 16px; background: white; padding: 8px; margin: 8px 0; border-radius: 5px; user-select: all;"></p>
+            <button onclick="showLogin()" style="background: #16a34a; color: white; padding: 10px; border-radius: 8px; width: 100%; border: none; cursor: pointer; font-weight: bold;">Proceed to Login</button>
+        </div>
+
+        <p class="switch" id="loginSwitchLink">
+            Already have an account? <span onclick="showLogin()">Login</span>
+        </p>
+    </div>
+</div>
+
+<div id="mainApp" class="hidden">
+    <header class="topbar">
+        <div>
+            <h1>Student Analysis</h1>
+            <div id="welcomeUser">Welcome, Student</div>
+        </div>
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <!-- Live Time Badge -->
+            <div style="background: #f0fdf4; padding: 8px 14px; border-radius: 10px; border: 1px solid #bbf7d0; display: flex; align-items: center; gap: 6px;">
+                <span id="liveClock" style="font-family: monospace; font-size: 14px; font-weight: bold; color: #15803d;">00:00:00</span>
+            </div>
+
+            <!-- Dark Mode Toggle Button -->
+            <button onclick="toggleDarkMode()" style="padding: 11px 16px; border-radius: 10px; color: white; background: #334155; font-weight: 600; cursor: pointer;">🌙 Dark Mode</button>
+
+            <button id="deleteAccountBtn" style="padding: 11px 20px; border-radius: 10px; color: white; background: #64748b; font-weight: 600; cursor: pointer;">Delete Account</button>
+            <button id="logoutBtn">Logout</button>
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <h2>Dashboard Overview</h2>
+
+        <section class="analytics">
+            <div class="card">
+                <h3>Total Goals</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <p id="totalGoals">0</p>
+                    <span style="font-size: 12px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 6px;">Active Goals</span>
+                </div>
+                <div style="margin-top: 12px; background: rgba(255,255,255,0.2); height: 6px; border-radius: 3px; overflow: hidden;">
+                    <div id="goalBar" style="width: 0%; background: white; height: 100%; transition: width 0.3s;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Total Tasks</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <p id="totalTasks">0</p>
+                    <span style="font-size: 12px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 6px;">All Tasks</span>
+                </div>
+                <div style="margin-top: 12px; background: rgba(255,255,255,0.2); height: 6px; border-radius: 3px; overflow: hidden;">
+                    <div id="taskBar" style="width: 100%; background: white; height: 100%;"></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>Completed Tasks</h3>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                    <p id="completedTasks">0</p>
+                    <span id="completedPercentage" style="font-size: 12px; background: rgba(255,255,255,0.2); padding: 3px 8px; border-radius: 6px;">0% Done</span>
+                </div>
+                <div style="margin-top: 12px; background: rgba(255,255,255,0.2); height: 6px; border-radius: 3px; overflow: hidden;">
+                    <div id="completedBar" style="width: 0%; background: white; height: 100%; transition: width 0.3s;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Study Focus Timer Section -->
+        <section class="section" style="text-align: center; background: linear-gradient(135deg, #f8fafc, #eef2ff); border: 2px dashed #c7d2fe;">
+            <h2>Study Timer (Focus Mode)</h2>
+            <div id="timerDisplay" style="font-size: 48px; font-weight: bold; color: #4f46e5; margin: 10px 0;">60:00</div>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+                <button onclick="startStudyTimer()" style="padding: 10px 22px; background: #16a34a; color: white; border-radius: 8px; font-weight: bold;">Start Focus</button>
+                <button onclick="resetStudyTimer()" style="padding: 10px 22px; background: #64748b; color: white; border-radius: 8px; font-weight: bold;">Reset</button>
+            </div>
+        </section>
+
+        <!-- Academic Resources & Google Drive Upload -->
+        <section class="section">
+            <h2>Academic Resources & Google Drive Links</h2>
+            <form id="resourceForm" style="display: grid; grid-template-columns: 2fr 3fr 1fr auto; gap: 10px; margin-bottom: 20px;">
+                <input type="text" id="resTitle" placeholder="Document / Subject Name" required>
+                
+                <div id="inputContainer" style="display: flex; align-items: center;">
+                    <input type="file" id="resFileInput" required style="padding: 8px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 10px; width: 100%;">
+                </div>
+
+                <select id="resCategory" onchange="handleCategoryChange()" style="padding: 11px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;">
+                    <option value="Google Drive">Google Drive File</option>
+                    <option value="YouTube Lecture">YouTube Lecture</option>
+                    <option value="University Portal">University Portal</option>
+                </select>
+                
+                <button type="submit" id="resSubmitBtn" style="padding: 0 20px; border-radius: 10px; color: white; background: linear-gradient(135deg, #4f46e5, #7c3aed);">Upload File</button>
+            </form>
+            <div id="resourcesList">
+                <p style="color: #64748b;">No resources saved yet.</p>
+            </div>
+        </section>
+
+        <!-- Daily Habits Tracker -->
+        <section class="section">
+            <h2>Daily Habits Tracker</h2>
+            <div id="habitsList" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;"></div>
+        </section>
+
+        <!-- Manage Goals with Search Bar & Button -->
+        <section class="section">
+            <h2>Manage Goals</h2>
+            
+            <div style="display: flex; align-items: center; border: 2px solid #6366f1; border-radius: 12px; padding: 4px 12px; background: #fff; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
+                <input type="text" id="goalSearch" placeholder="Search your goals..." onkeyup="searchGoals()" style="border: none; outline: none; flex: 1; font-size: 15px; padding: 8px; background: transparent;">
+                <button type="button" onclick="searchGoals()" style="background: #4f46e5; border: none; color: white; width: 38px; height: 38px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 15px;">🔍</button>
+            </div>
+
+            <form id="goalForm">
+                <input type="text" id="goalInput" placeholder="Enter a new goal..." required>
+                <button type="submit">Add Goal</button>
+            </form>
+            <div id="goalMessage"></div>
+            <div id="goalsList">
+                <p style="color: #64748b;">No goals added yet.</p>
+            </div>
+        </section>
+
+        <!-- My Tasks -->
+        <section class="section">
+            <h2>My Tasks</h2>
+            <form id="taskForm" style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <input type="text" id="taskInput" placeholder="Enter a new task..." required style="flex: 1;">
+                <button type="submit" style="padding: 0 22px; border-radius: 11px; color: white; background: linear-gradient(135deg, #0891b2, #06b6d4);">Add Task</button>
+            </form>
+            <div id="taskMessage"></div>
+            <div id="tasksList">
+                <p style="color: #64748b;">No tasks available right now.</p>
+            </div>
+        </section>
+
+        <!-- Exam / Assignment Deadlines -->
+        <section class="section">
+            <h2>Exam / Assignment Deadlines</h2>
+            <form id="deadlineForm" onsubmit="event.preventDefault(); addDeadline();" style="display: flex; gap: 12px; margin-bottom: 20px;">
+                <input type="text" id="dlTitle" placeholder="Subject / Exam Name" required style="flex: 2;">
+                <input type="date" id="dlDate" required style="flex: 1;">
+                <button type="submit" style="padding: 0 22px; border-radius: 11px; color: white; background: #4f46e5;">Add Deadline</button>
+            </form>
+            <div id="deadlineList">
+                <p style="color: #64748b;">No deadlines added yet.</p>
+            </div>
+        </section>
+
+        <!-- CGPA Calculator -->
+        <section class="section">
+            <h2>CGPA Calculator</h2>
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <input type="number" id="cgpaInput" placeholder="Enter Marks / Percentage" style="flex: 1;">
+                <button onclick="calculateCGPA()" style="padding: 12px 22px; border-radius: 11px; color: white; background: #16a34a;">Calculate</button>
+            </div>
+            <p id="cgpaResult" style="margin-top: 15px; font-weight: bold; font-size: 16px; color: #1e293b;"></p>
+        </section>
+
+        <!-- Quick Notes / Scratchpad -->
+        <section class="section">
+            <h2>Quick Notes / Scratchpad</h2>
+            <form id="noteForm" onsubmit="event.preventDefault(); saveNote();" style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px;">
+                <input type="text" id="noteTitle" placeholder="Note Title" required>
+                <textarea id="noteContent" placeholder="Write your notes here..." rows="3" required style="padding: 11px; border: 2px solid #e2e8f0; border-radius: 10px; background: #f8fafc;"></textarea>
+                <button type="submit" style="padding: 12px; border-radius: 11px; color: white; background: #0891b2; font-weight: bold;">Save Note</button>
+            </form>
+            <div id="notesList">
+                <p style="color: #64748b;">No notes saved yet.</p>
+            </div>
+        </section>
+    </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
