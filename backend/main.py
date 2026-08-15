@@ -320,7 +320,7 @@ async def upload_to_google_drive(
         
         file_metadata = {
             'name': title,
-            'parents': [PARENT_FOLDER_ID]
+            'parents': ['https://drive.google.com/drive/u/1/folders/14Ro6J0SeWYtGnH2DQvHuFXLggoME8zYF']
         }
         media = MediaFileUpload(temp_file_path, resumable=True)
         
