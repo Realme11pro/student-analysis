@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "Student Analysis",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Students",
+  "start_url": "/",
+  "theme_color": "#ffffff",
+  "id": "in.student-analysis",
+  "description": "Student Data Management System"
+}
