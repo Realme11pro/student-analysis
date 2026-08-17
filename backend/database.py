@@ -4,7 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
 # Render ke liye cloud URL ya local ke liye SQLite file use karega
-SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./student.db")
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./student_analysis")
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, 

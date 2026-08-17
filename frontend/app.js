@@ -34,7 +34,7 @@ const completedPercentage = document.getElementById("completedPercentage");
 const welcomeUser = document.getElementById("welcomeUser");
 
 function getToken() {
-    return localStorage.getItem("access_token");
+    return sessionStorage.getItem("access_token");
 }
 
 function showLogin() {
@@ -76,7 +76,7 @@ function showForgotPassword() {
 
 function showDashboard() {
     if (loginPage) loginPage.classList.add("hidden");
-    if (signupPage) loginPage.classList.add("hidden");
+    if (signupPage) signupPage.classList.add("hidden");
     if (mainApp) mainApp.classList.remove("hidden");
     loadDashboard();
 }
@@ -228,9 +228,9 @@ if (otpForm) {
                 return;
             }
 
-            localStorage.setItem("access_token", data.access_token);
-            localStorage.setItem("user_email", email);
-            localStorage.setItem("user_name", data.full_name || email.split('@')[0]);
+            sessionStorage.setItem("access_token", data.access_token);
+            sessionStorage.setItem("user_email", email);
+            sessionStorage.setItem("user_name", data.full_name || email.split('@')[0]);
 
             setTimeout(() => {
                 otpForm.reset();
@@ -300,7 +300,7 @@ async function loadDashboard() {
         return;
     }
 
-    const userName = localStorage.getItem("user_name") || "Student";
+    const userName = sessionStorage.getItem("user_name") || "Student";
     if (welcomeUser) {
         welcomeUser.textContent = `Welcome, ${userName}`;
     }
@@ -835,7 +835,7 @@ const deleteAccountBtn = document.getElementById("deleteAccountBtn");
 if (deleteAccountBtn) {
     deleteAccountBtn.addEventListener("click", async function() {
         if (!confirm("Are you sure you want to delete your account?")) return;
-        const email = localStorage.getItem("user_email");
+        const email = sessionStorage.getItem("user_email");
         try {
             const response = await fetch(`${API_URL}/delete-account?email=${encodeURIComponent(email)}`, { method: "DELETE", headers: authHeaders() });
             if (response.ok) { alert("Account deleted successfully."); logout(); }
@@ -847,9 +847,9 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) { logoutBtn.addEventListener("click", logout); }
 
 function logout() {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("user_email");
-    localStorage.removeItem("user_name");
+    sessionStorage.removeItem("access_token");
+    sessionStorage.removeItem("user_email");
+    sessionStorage.removeItem("user_name");
     showLogin();
 }
 
